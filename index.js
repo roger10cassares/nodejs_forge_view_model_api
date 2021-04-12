@@ -27,4 +27,12 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).json(err);
 });
 
-app.listen(PORT, () => { console.log(`Server listening at http://localhost/bim. Please set up the haproxy correctly!`); });
+app.listen(PORT, () => { 
+    console.log(`
+    Server listening at http://localhost/bim.
+    Please set up the haproxy correctly!
+    
+    Please, access the server at http://localhost:3000/bim without the proxy config.
+    For this work properly, set the Callback URL for http://localhost:3000/bim/api/forge/callback/oauth
+    both in .env file and Autodesk Forge App at https://forge.autodesk.com/myapps/
+`); });
