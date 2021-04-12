@@ -27,4 +27,4 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).json(err);
 });
 
-app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
+app.listen(PORT, () => { console.log(`Server listening at http://localhost/bim. Please set up the haproxy correctly!`); });
