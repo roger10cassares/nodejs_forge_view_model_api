@@ -1,0 +1,3 @@
+# ignore this files and folders when using git repository management
+
+.env
