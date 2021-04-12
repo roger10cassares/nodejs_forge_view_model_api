@@ -1,4 +1,4 @@
-# nodejs_forge_sample with haproxy subpath support
+# nodejs_forge_sample with subpath and haproxy support
 
 
 ## Prerequiriments
