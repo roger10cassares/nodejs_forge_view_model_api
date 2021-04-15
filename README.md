@@ -1,4 +1,4 @@
-# nodejs_forge_sample with subpath and haproxy support
+# nodejs_forge_view_model with subpath and haproxy support
 
 
 ## Prerequiriments
@@ -13,16 +13,16 @@
 ## 1. Clone the Project from the Terminal
 
 ```bash
-git clone https://github.com/roger10cassares/nodejs_forge_sample.git
+git clone https://github.com/roger10cassares/nodejs_forge_view_model.git
 ```
 
 OR
 
-Download the project `nodejs_forge_sample-master.zip` and rename the folder to match nodejs_forge_sample name. Here bellow is the example from terminal:
+Download the project `nodejs_forge_view_model-main.zip` and rename the folder to match nodejs_forge_sample name. Here bellow is the example from terminal:
 
 ```bash
-unzip nodejs_forge_sample-main.zip
-mv nodejs_forge_sample-mian.zip nodejs_forge_sample
+unzip nodejs_forge_view_model-main.zip
+mv nodejs_forge_view_model-mian.zip nodejs_forge_view_model
 ```
 
 
@@ -32,7 +32,7 @@ mv nodejs_forge_sample-mian.zip nodejs_forge_sample
 Go to the top leval directory of this project and run the command to open Visual Studio Code from the terminal:
 
 ```bash
-cd nodejs_forge_sample
+cd nodejs_forge_view_model
 code .
 ```
 
@@ -57,18 +57,20 @@ Add the following line according your App account inside the `.env` file.
 ```env
   FORGE_CLIENT_ID=YOUR_CLIENT_ID_HERE
   FORGE_CLIENT_SECRET=YOUR_CLIENT_SECRET_HERE
-  FORGE_CALLBACK_URL=http://localhost/bim/api/forge/callback/oauth
+
+  # FORGE_CALLBACK_URL is only for 3-legged OAuth
+  FORGE_CALLBACK_URL=http://localhost/forge/api/forge/callback/oauth 
 ```
 
-At this point you are able to run the `nodejs` service without `haproxy` support. Follow steps `5` and `6`, then access your server at http://localhost:3000/bim. 
+At this point you are able to run the `nodejs` service without `haproxy` support. Follow steps `5` and `6`, then access your server at http://localhost:3000/forge. 
 
-> *Note: For this work properly, set the Callback URL for http://localhost:3000/bim/api/forge/callback/oauth both in `.env` file and Autodesk Forge App at https://forge.autodesk.com/myapps/*
+> *Note: For 3-legged OAuth work properly, set the Callback URL for http://localhost:3000/forge/api/forge/callback/oauth both in `.env` file and Autodesk Forge App at https://forge.autodesk.com/myapps/*
 
 
 
 ## 4. Set HAPROXY Configuration
 
-Set the HAPROXY configuration for proxy the subpath `/bim` entry point address of this application.
+Set the HAPROXY configuration for proxy the subpath `/forge` entry point address of this application.
 
 Open `/etc/haproxy/haproxy.cfg` 
 
@@ -79,10 +81,10 @@ sudo nano /etc/haproxy/haproxy.cfg
 Then, add the following lines:
 
 ```bash
-use_backend localhost_bim if { hdr(host) -i localhost } { path -i -m beg /bim }
+use_backend localhost_forge if { hdr(host) -i localhost } { path -i -m beg /forge }
 
 backend localhost_bim
-    server server_localhost_bim localhost:3000/bim
+    server server_localhost_forge localhost:3000/forge
 ```
 
 Save and close the file with Ctrl^O, ENTER, Ctrl^X, then restart the HAPROXY Service:
@@ -115,4 +117,4 @@ yarn start
 
 ## 7. Access the nodejs App Behind HAPROXY Configuration
 
-Open the application accessing http://localhost/bim.
+Open the application accessing http://localhost/forge.

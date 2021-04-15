@@ -3,6 +3,7 @@ dotenv.config();
 
 // Autodesk Forge configuration
 module.exports = {
+    baseUrl: '/forge/',
     // Set environment variables or hard-code here
     credentials: {
         client_id: process.env.FORGE_CLIENT_ID,
